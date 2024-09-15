@@ -1,0 +1,31 @@
+name: CI for Notable FrontEnd
+
+on:
+    push:
+        branches:
+            - master
+
+    workflow_dispatch:
+
+jobs:
+    Build-Notable-FrontEnd:
+        runs-on: [ubuntu-latest]
+        steps:
+        - name: Setup Node.js environment
+          uses: actions/setup-node@v4.0.3
+
+        - name: install packages
+          run: |
+            npm install
+          working-directory: ${{ github.workspace }}
+        
+        - name: build the notable frontend
+          run: |
+            npm run build
+          working-directory: ${{ github.workspace }}
+
+        - name: Upload a Build Artifact
+          uses: actions/upload-artifact@v4.4.0
+          with:
+            name: Frontend-Final-Dist
+            path: build

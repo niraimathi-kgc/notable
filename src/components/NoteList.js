@@ -20,7 +20,7 @@ const NoteList = () => {
 
   return (
     <div>
-      <h2>Notes</h2>
+      <h2>Notable</h2>
       <AddNote /> {/* Add AddNote component here */}
       <ul>
         {notes.map((note) => (
