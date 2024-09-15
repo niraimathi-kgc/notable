@@ -1,9 +1,6 @@
 name: CI for Notable Frontend
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
