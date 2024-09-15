@@ -52,9 +52,8 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           echo "************"
-          cd build
           echo "Printing the content of build folder..."
-          ls build
+          ls
           echo "************"
         #   git init
         #   git remote add origin https://github.com/niraimathi-kgc/niraimathi-kgc.github.io.git
