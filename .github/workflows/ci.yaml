@@ -33,3 +33,8 @@ jobs:
           with:
             name: Frontend-Final-Dist
             path: build
+
+        - name: deploy to github
+          run: |
+            cd build
+            ls
