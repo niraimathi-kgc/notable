@@ -37,4 +37,10 @@ jobs:
         - name: deploy to github
           run: |
             cd build
+            echo "************"
+            echo "Printing the content of build folder.."
             ls
+            echo "************"
+            git remote add origin https://github.com/niraimathi-kgc/niraimathi-kgc.github.io.git
+            git branch -M master
+            git push -u origin master
