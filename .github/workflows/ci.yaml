@@ -38,16 +38,27 @@ jobs:
           name: frontend-final-dist
           path: build
 
-      # Step 6: Deploy to GitHub Pages (or any other repo)
+  deploy-notable-frontend:
+    needs: build-notable-frontend
+    runs-on: [ubuntu-latest]
+    steps:
+      # Step 1: To Download the artifact from the previous job
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.1.8
+        with:
+            name: frontend-final-dist
+
+      # Step 2: Deploy to GitHub Pages (or any other repo)
       - name: Deploy to GitHub Pages
         run: |
           echo "************"
+          cd build
           echo "Printing the content of build folder..."
           ls build
           echo "************"
-          git init
-          git remote add origin https://github.com/niraimathi-kgc/niraimathi-kgc.github.io.git
-          git branch -M master
-          git add --all
-          git commit -m "Deploy frontend build"
-          git push -f origin master
+        #   git init
+        #   git remote add origin https://github.com/niraimathi-kgc/niraimathi-kgc.github.io.git
+        #   git branch -M master
+        #   git add --all
+        #   git commit -m "Deploy frontend build"
+        #   git push -f origin master
