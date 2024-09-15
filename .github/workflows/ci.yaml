@@ -1,46 +1,53 @@
-name: CI for Notable FrontEnd
+name: CI for Notable Frontend
 
 on:
-    push:
-        branches:
-            - master
-
-    workflow_dispatch:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
 
 jobs:
-    Build-Notable-FrontEnd:
-        runs-on: [ubuntu-latest]
-        steps:
+  build-notable-frontend:
+    runs-on: ubuntu-latest
 
-        - name: Checkout
-          uses: actions/checkout@v4.1.7
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        - name: Setup Node.js environment
-          uses: actions/setup-node@v4.0.3
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16' # Specify a version if needed
 
-        - name: install packages
-          run: |
-            npm install
-          working-directory: ${{ github.workspace }}
-        
-        - name: build the notable frontend
-          run: |
-            npm run build
-          working-directory: ${{ github.workspace }}
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ github.workspace }}
 
-        - name: Upload a Build Artifact
-          uses: actions/upload-artifact@v4.4.0
-          with:
-            name: Frontend-Final-Dist
-            path: build
+      # Step 4: Build the frontend
+      - name: Build the frontend
+        run: npm run build
+        working-directory: ${{ github.workspace }}
 
-        - name: deploy to github
-          run: |
-            cd build
-            echo "************"
-            echo "Printing the content of build folder.."
-            ls
-            echo "************"
-            git remote add origin https://github.com/niraimathi-kgc/niraimathi-kgc.github.io.git
-            git branch -M master
-            git push -u origin master
+      # Step 5: Upload build artifacts
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-final-dist
+          path: build
+
+      # Step 6: Deploy to GitHub Pages (or any other repo)
+      - name: Deploy to GitHub Pages
+        run: |
+          echo "************"
+          echo "Printing the content of build folder..."
+          ls build
+          echo "************"
+          git init
+          git remote add origin https://github.com/niraimathi-kgc/niraimathi-kgc.github.io.git
+          git branch -M master
+          git add --all
+          git commit -m "Deploy frontend build"
+          git push -f origin master
