@@ -1,0 +1,30 @@
+pipeline:
+  name: test
+  identifier: test
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: test
+        identifier: test
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: PowerShell
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "Printing the content"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
